@@ -1,0 +1,20 @@
+@font-face {
+  font-family: "MyFont";
+  src: url("../font/my-font.woff") format("woff2"),
+    url("../font/my-font.woff2") format("woff");
+  font-weight: 600;
+  font-style: normal;
+}
+
+.hello {
+  color: red;
+  font-family: "MyFont";
+  background: url("../img/jpeg.jpeg");
+  background-size: 100px 100px;
+  background-repeat: no-repeat;
+  /* background-position: center; */
+}
+img {
+  width: 50px;
+  height: 50px;
+}
