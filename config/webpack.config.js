@@ -11,8 +11,8 @@
     mode: 'production',
     entry: {
       app: './src2/index.js',
-      print: './src2/print.js',
-      another: './src2/another-module.js'
+      // print: './src2/print.js',
+      // another: './src2/another-module.js'
     },
     plugins: [
       //清理打包项目
@@ -23,10 +23,11 @@
       }),
     ],
     output: {
-      filename: '[name].bundle.js',
+      filename: '[name].[hash].bundle.js',
       path: path.resolve('dist')
     },
     optimization: {
+      // 防止重复引入相同的模块,减少体积
       splitChunks: {
         cacheGroups: {
           commons: {
