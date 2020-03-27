@@ -1,33 +1,31 @@
-import _ from 'lodash';
-import './assets/css/style.css';
-import './assets/less/index.less';
-import Icon from './assets/img/jpeg.jpeg'
-import json from './assets/lang/en'
+ import _ from 'lodash';
+ import common from '@/assets/js/common'
 
-import img from './components/my-component/'
+ function component() {
+   common.fn()
+   var element = document.createElement('div');
+   var button = document.createElement('button');
+   var br = document.createElement('br');
 
-function component() {
-  console.log(process.env)
-  console.log(json)
-  var element = document.createElement('div');
-  var span = document.createElement('span');
+   button.innerHTML = 'Click me and look at the console!';
+   element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+   element.appendChild(br);
+   element.appendChild(button);
 
-  element.className = 'first'
-  // Lodash, now imported by this script
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-  span.innerHTML = '1233654'
-  span.className = 'second'
-  element.appendChild(span)
-  element.classList.add('hello');
-  // 将图像添加到我们现有的 div。
-  var myIcon = new Image();
-  myIcon.src = Icon;
-  console.log(myIcon)
+   // Note that because a network request is involved, some indication
+   // of loading would need to be shown in a production-level site/app.
+   //  懒加载
+   button.onclick = e => import( /* webpackChunkName: "print" */ './print').then(module => {
+     common.http({
+       url: '/admin',
+       method: 'post'
+     })
+     var print = module.default;
 
-  element.appendChild(myIcon);
+     print();
+   });
 
-  return element;
-}
+   return element;
+ }
 
-document.body.appendChild(component());
-document.body.appendChild(img);
+ document.body.appendChild(component());
