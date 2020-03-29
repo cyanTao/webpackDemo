@@ -1,5 +1,4 @@
 const path = require('path');
-console.log(process.env.NODE_ENV)
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // html的插件
 // const UglifyJSPlugin = require('uglifyjs-webpack-plugin');//被移除
 const webpack = require('webpack');
@@ -12,7 +11,7 @@ const outputPath = 'dist'
 
 module.exports = {
   //如果所有代码都不包含副作用，可在package.json设置sideEffects为 false，来告知 webpack，它可以安全地删除未用到的 export 导出。
-  mode: process.env.NODE_ENV,
+  // mode: 'production', //环境
   entry: {
     index: './src/index.js',
     // index: './src2/index.ts',
@@ -31,9 +30,9 @@ module.exports = {
     // new UglifyJSPlugin({
     //   sourceMap: true
     // }), //webpack 4版本之后被移除了，使用config.optimization.splitChunks来代替
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV) //无法在构建脚本 webpack.config.js 中，将 process.env.NODE_ENV 设置为 "production",所以加个 JSON.stringify
-    }),
+    // new webpack.DefinePlugin({
+    //   'process.env.NODE_ENV': JSON.stringify('production') //无法在构建脚本 webpack.config.js 中，将 process.env.NODE_ENV 设置为 "production",所以加个 JSON.stringify
+    // }), //环境变量配置
     // new CleanWebpackPlugin(), //清理打包项目文件夹
     new HtmlWebpackPlugin({
       template: './public/index.html' // 设置打包后html的模板

@@ -1,22 +1,52 @@
-process.env.NODE_ENV = 'development'
 const merge = require('webpack-merge');
-const common = require('./webpack.config.js');
 const webpack = require('webpack');
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
-module.exports = merge(common, {
-  devtool: 'source-map',
-  plugins: [
-    new webpack.NamedModulesPlugin(), // 开发环境
-  ],
-  devServer: {
-    port: '8081',
-    proxy: {
-      '/': {
-        target: 'http://www.ivvmedia.cn',
-        pathRewrite: {
-          "^/": "/"
+const common = require('./webpack.config.js');
+const utils = require('./utils');
+
+// host
+const host = '0.0.0.0'
+
+let port = '8081'
+
+
+
+module.exports = new Promise(async resolve => {
+
+  // 获取目前没被占用的port
+  port = await utils.getPort(port)
+
+  const config = merge(common, {
+    mode: 'development',
+    devtool: 'source-map',
+    plugins: [
+      new webpack.NamedModulesPlugin(), // 开发环境
+      new FriendlyErrorsPlugin({
+        compilationSuccessInfo: {
+          messages: [
+            `Your application is running here:`,
+            `     http://localhost:${port}`,
+            `     http://${utils.getHost()}:${port}`
+          ],
+        },
+        onErrors: utils.createNotifierCallback()
+      })
+    ],
+    devServer: {
+      quiet: true, //设为true，禁止显示devServer的console信息
+      host,
+      port,
+      proxy: {
+        '/': {
+          target: 'http://www.ivvmedia.cn',
+          pathRewrite: {
+            "^/": "/"
+          }
         }
       }
     }
-  }
-});
+  })
+
+  resolve(config)
+})

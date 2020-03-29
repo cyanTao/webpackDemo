@@ -1,30 +1,30 @@
- import _ from 'lodash';
- import common from '@/assets/js/common'
+import _ from 'lodash'
+import common from '@/assets/js/common'
 
- function component() {
-   //  common.fn()
-   var element = document.createElement('div');
-   var button = document.createElement('button');
-   var br = document.createElement('br');
+function component () {
+  common.fn()
+  var element = document.createElement('div')
+  var button = document.createElement('button')
+  var br = document.createElement('br')
 
-   button.innerHTML = 'Click me and look at the console!';
-   element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-   element.appendChild(br);
-   element.appendChild(button);
+  button.innerHTML = 'Click me and look at the console!'
+  element.innerHTML = _.join(['Hello', 'webpack'], ' ')
+  element.appendChild(br)
+  element.appendChild(button)
 
-   // Note that because a network request is involved, some indication
-   // of loading would need to be shown in a production-level site/app.
-   //  懒加载
+  // Note that because a network request is involved, some indication
+  // of loading would need to be shown in a production-level site/app.
+  //  懒加载
 
-   //eslint-disable-next-line
-   button.onclick = e => import( /* webpackChunkName: "print" */ './print').then(module => {
+  //eslint-disable-next-line
+  button.onclick = async (e) => {
+    console.log(e)
+    import('./print').then(res => {
+      console.log(res)
+    })
+  }
 
-     var print = module.default;
+  return element
+}
 
-     print();
-   });
-
-   return element;
- }
-
- document.body.appendChild(component());
+document.body.appendChild(component())
