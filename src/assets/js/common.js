@@ -5,11 +5,11 @@ class Common {
   }
 
   static pp = ''
-  // static fn() {
-  //   const test = '3213'
-  //   console.log(test)
-  //   console.log(this.name, process.env.NODE_ENV)
-  // }
+  static fn () {
+    const test = '3213'
+    console.log(test)
+    console.log(this.name, process.env.NODE_ENV)
+  }
 
   static http (params) {
     return axios(params)

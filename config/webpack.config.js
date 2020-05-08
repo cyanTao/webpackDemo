@@ -20,6 +20,9 @@ module.exports = {
       'lodash'
     ]
   },
+  externals: {
+    jquery: 'jQuery'
+  },
   // devtool: 'source-map', //用于将编译后的代码映射回原始源代码,帮助开发时更容易地追踪错误和警告,不要用于生产环境
   // 修改配置文件，告诉开发服务器(dev server)，在哪里查找文件
   devServer: {

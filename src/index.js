@@ -1,3 +1,5 @@
+import $ from 'jquery'
+$('html').html('<button>跟我讲饿哦</button>')
 import _ from 'lodash'
 import common from '@/assets/js/common'
 
