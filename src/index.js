@@ -2,7 +2,8 @@ import $ from 'jquery'
 $('html').html('<button>跟我讲饿哦</button>')
 import _ from 'lodash'
 import common from '@/assets/js/common'
-
+import * as echart from 'echarts'
+import loadsh from 'loadsh'
 function component () {
   common.fn()
   var element = document.createElement('div')
@@ -23,7 +24,11 @@ function component () {
     console.log(e)
     import('./print').then(res => {
       console.log(res)
+      console.log(echart)
+      console.log(loadsh)
     })
+    // import(/* webpackChunkName: "loadash" */ 'loadsh')
+    // require.ensure([], () => require('echarts'), 'echarts')
   }
 
   return element

@@ -11,7 +11,7 @@ module.exports = {
     browser: true,
     amd: true,
     es6: true,
-    node: false,
+    node: true,
   },
   rules: {
     "indent": ["error", 2],

@@ -56,17 +56,29 @@ module.exports = {
     // vendor bundle 会随着自身的 module.id 的修改，而发生变化。
     // manifest bundle 会因为当前包含一个新模块的引用，而发生变化。
     splitChunks: {
-      name: 'vendor',
-      name: 'manifest',
+      // name: 'vendor',
       cacheGroups: {
-        // 防止重复引入相同的模块,减少体积
+        name: false,
         commons: {
-          // 生成的共享模块bundle的名字
-          name: "commons",
-          chunks: "initial",
-          minChunks: 2
-        }
-      }
+          test: /[\\/]node_modules[\\/]/,
+          name: 'common',
+          chunks: 'all',
+          priority: -10,
+        },
+        echarts: {
+          test: function (module) {
+            if (module.resource) {
+              const include = [/[\\/]node_modules[\\/](echarts)/].some(reg => {
+                return reg.test(module.resource);
+              });
+              return include;
+            }
+            return false;
+          },
+          name: 'echartMode',
+          chunks: 'all'
+        },
+      },
     }
   },
   module: {
