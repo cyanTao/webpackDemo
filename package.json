@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --config config/dev.js",
-    "build": "webpack --config config/prod.js --process --colors",
+    "build": "webpack --config config/prod.js --process --colors && node config/writeTag.js",
     "analyze": "cross-env NODE_ANALYZE=true npm run build"
   },
   "keywords": [],
@@ -44,6 +44,7 @@
     "loadsh": "^0.0.4",
     "lodash": "^4.17.15",
     "node-notifier": "^6.0.0",
+    "shelljs": "^0.8.4",
     "ts-loader": "^6.2.2",
     "typescript": "^3.8.3",
     "webpack-bundle-analyzer": "^4.4.2",
