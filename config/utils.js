@@ -10,7 +10,11 @@ exports.createNotifierCallback = () => {
 
     const error = errors[0]
     const filename = error.file && error.file.split('!').pop()
-    console.error(error.message)
+    if(error.webpackError) {
+      console.error(error.webpackError)
+    } else {
+      console.error(error.message)
+    }
     notifier.notify({
       title: packageConfig.name,
       message: severity + ': ' + error.name,
