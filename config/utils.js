@@ -71,7 +71,7 @@ exports.fastDev = function () {
     }
     // 以/结尾
     if (/\/$/.test(dirname)) {
-      dirname = dirname.slice(-1) + '\/?'
+      dirname = dirname.slice(0, -1) + '\/?'
     }
     // 没有.xxx后缀
     else if (!/\.[a-zA-Z]+$/.test(dirname)) {
