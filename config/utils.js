@@ -55,9 +55,11 @@ require('dotenv').config({
 });
 const {
   ROOT_PATH,
-  INCLUDE_PATH
+  INCLUDE_PATH,
+  IGNORE_ENABLE
 } = process.env
-const useFastDev = ROOT_PATH && INCLUDE_PATH
+const useFastDev = ROOT_PATH && INCLUDE_PATH && IGNORE_ENABLE === '1'
+
 
 exports.useFastDev = useFastDev
 
