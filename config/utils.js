@@ -2,6 +2,7 @@ const packageConfig = require('../package.json')
 const path = require('path')
 const os = require('os');
 const portfinder = require('portfinder')
+const webpack = require('webpack')
 
 exports.createNotifierCallback = () => {
   const notifier = require('node-notifier')
@@ -50,7 +51,7 @@ exports.getPort = port => new Promise((resolve, reject) => {
 
 // fastDev
 require('dotenv').config({
-  path: path.resolve(__dirname, '../../.env.development')
+  path: path.resolve(__dirname, '../.env.development')
 });
 const {
   ROOT_PATH,
