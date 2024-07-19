@@ -10,7 +10,7 @@ exports.createNotifierCallback = () => {
 
     const error = errors[0]
     const filename = error.file && error.file.split('!').pop()
-    if(error.webpackError) {
+    if (error.webpackError) {
       console.error(error.webpackError)
     } else {
       console.error(error.message)
@@ -47,3 +47,40 @@ exports.getPort = port => new Promise((resolve, reject) => {
     }
   })
 })
+
+// fastDev
+require('dotenv').config({
+  path: path.resolve(__dirname, '../../.env.development')
+});
+const {
+  ROOT_PATH,
+  INCLUDE_PATH
+} = process.env
+const useFastDev = ROOT_PATH && INCLUDE_PATH
+
+exports.useFastDev = useFastDev
+
+exports.fastDev = function () {
+  function formatPath(dirname) {
+    // 以/开头
+    if (/^\//.test(dirname)) {
+      dirname = dirname.slice(1)
+    }
+    // 以/结尾
+    if (/\/$/.test(dirname)) {
+      dirname = dirname.slice(-1) + '\/?'
+    }
+    // 没有.xxx后缀
+    else if (!/\.[a-zA-Z]+$/.test(dirname)) {
+      dirname = dirname + '\/?'
+    }
+    // 以.js和.vue结尾的, 可以省略后缀, 这里直接去掉避免代码没写后缀导致识别不出
+    else if (/\.(js|vue)$/.test(dirname)) {
+      dirname = dirname.replace(/(.*)\.(js|vue)/, '$1')
+    }
+    return dirname
+  }
+  const reg = new RegExp(ROOT_PATH + '/' + INCLUDE_PATH.split(',').map(dirname => `(?!${formatPath(dirname)})`).join(''))
+  console.log(reg)
+  return new webpack.IgnorePlugin(reg)
+}

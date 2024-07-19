@@ -4,6 +4,8 @@ import _ from 'lodash'
 import common from '@/assets/js/common'
 import * as echart from 'echarts'
 import loadsh from 'loadsh'
+import app1 from '@/pages/app1'
+import app2 from '@/pages/app2/const.js'
 function component () {
   common.fn()
   var element = document.createElement('div')
@@ -33,5 +35,5 @@ function component () {
 
   return element
 }
-
+console.log(app1, app2)
 document.body.appendChild(component())

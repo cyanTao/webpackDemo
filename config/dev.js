@@ -31,7 +31,8 @@ module.exports = new Promise(async resolve => {
           ],
         },
         onErrors: utils.createNotifierCallback()
-      })
+      }),
+      ...(utils.useFastDev ? [new utils.fastDev()] : [])
     ],
     devServer: {
       quiet: true, //设为true，禁止显示devServer的console信息
