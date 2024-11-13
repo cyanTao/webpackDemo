@@ -4,6 +4,7 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
 const common = require('./webpack.config.js');
 const utils = require('./utils');
+const { codeInspectorPlugin } = require('code-inspector-plugin')
 
 // host
 const host = '0.0.0.0'
@@ -31,6 +32,9 @@ module.exports = new Promise(async resolve => {
           ],
         },
         onErrors: utils.createNotifierCallback()
+      }),
+      codeInspectorPlugin({
+        bundler: 'webpack',
       }),
       ...(utils.useFastDev ? [new utils.fastDev()] : [])
     ],
